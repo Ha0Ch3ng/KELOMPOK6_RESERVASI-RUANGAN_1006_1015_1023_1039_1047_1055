@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "Reservasi Ruangan API",
+    "description": "Koleksi request API Sistem Reservasi Ruangan (5 endpoint utama + 3 kasus gagal).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api" }
+  ],
+  "item": [
+    {
+      "name": "1. GET - Ambil semua reservasi",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/reservasi"
+      }
+    },
+    {
+      "name": "2. GET - Ambil reservasi by id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/reservasi/1"
+      }
+    },
+    {
+      "name": "3. POST - Tambah reservasi",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_pemesan\": \"Tester Postman\",\n  \"nama_ruangan\": \"Ruang Kelas 101\",\n  \"kategori\": \"Ruang Kelas\",\n  \"tanggal\": \"2026-12-10\",\n  \"jam_mulai\": \"08:00\",\n  \"jam_selesai\": \"10:00\",\n  \"keperluan\": \"Uji coba tambah\",\n  \"status\": \"Menunggu\"\n}"
+        },
+        "url": "{{baseUrl}}/reservasi"
+      }
+    },
+    {
+      "name": "4. PUT - Ubah reservasi",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_pemesan\": \"Tester Postman\",\n  \"nama_ruangan\": \"Ruang Kelas 101\",\n  \"kategori\": \"Ruang Kelas\",\n  \"tanggal\": \"2026-12-10\",\n  \"jam_mulai\": \"08:00\",\n  \"jam_selesai\": \"10:30\",\n  \"keperluan\": \"Uji coba ubah\",\n  \"status\": \"Disetujui\"\n}"
+        },
+        "url": "{{baseUrl}}/reservasi/1"
+      }
+    },
+    {
+      "name": "5. DELETE - Hapus reservasi",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/reservasi/1"
+      }
+    },
+    {
+      "name": "Gagal 1 - POST validasi kosong (400)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_pemesan\": \"\",\n  \"nama_ruangan\": \"\",\n  \"tanggal\": \"\",\n  \"jam_mulai\": \"\",\n  \"jam_selesai\": \"\"\n}"
+        },
+        "url": "{{baseUrl}}/reservasi"
+      }
+    },
+    {
+      "name": "Gagal 2 - GET id tidak ada (404)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/reservasi/999999"
+      }
+    },
+    {
+      "name": "Gagal 3 - POST jadwal bentrok (409)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_pemesan\": \"Uji Bentrok\",\n  \"nama_ruangan\": \"Lab Komputer 2\",\n  \"kategori\": \"Laboratorium\",\n  \"tanggal\": \"2026-11-20\",\n  \"jam_mulai\": \"09:00\",\n  \"jam_selesai\": \"11:00\",\n  \"keperluan\": \"Harus bentrok dengan seed id 1\",\n  \"status\": \"Menunggu\"\n}"
+        },
+        "url": "{{baseUrl}}/reservasi"
+      }
+    }
+  ]
+}

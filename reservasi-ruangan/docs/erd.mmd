@@ -1,0 +1,13 @@
+erDiagram
+    RESERVASI {
+        INT id PK "AUTO_INCREMENT"
+        VARCHAR(100) nama_pemesan "NOT NULL"
+        VARCHAR(100) nama_ruangan "NOT NULL"
+        ENUM kategori "Ruang Kelas|Laboratorium|Ruang Rapat|Aula, NOT NULL"
+        DATE tanggal "NOT NULL"
+        TIME jam_mulai "NOT NULL"
+        TIME jam_selesai "NOT NULL"
+        TEXT keperluan "NULL"
+        ENUM status "Menunggu|Disetujui|Ditolak, NOT NULL"
+        TIMESTAMP created_at "DEFAULT CURRENT_TIMESTAMP"
+    }
